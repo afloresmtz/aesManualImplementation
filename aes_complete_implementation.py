@@ -397,8 +397,13 @@ while user_exit == False:
       encrypted_state = matrixXOR(encrypted_state, full_key[-16:])
 
       encrypted_content.append(encrypted_state)
-
+        
+    flat_bytes = bytes(int(byte, 16) for state in encrypted_content for byte in state)
+    with open("output_encrypted.bin", "wb") as f:
+      f.write(flat_bytes)
+    files.download("output_encrypted.bin")
     download_list(encrypted_content, "output_encrypted.txt")
+    
     user_exit = True
     break
   elif user_input == 2:
